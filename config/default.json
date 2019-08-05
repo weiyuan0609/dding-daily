@@ -1,0 +1,3 @@
+module.exports = {
+  DING_URL: "https://oapi.dingtalk.com/robot/send?access_token=**********",
+}
