@@ -30,6 +30,6 @@ async function recommend() {
   * 2016年的1月1日1点1分30秒触发 ：'30 1 1 1 2016 *'
   * 每周1的1点1分30秒触发 ：'30 1 1 * * 1'
  */
-schedule.scheduleJob('0 40 19 * * *', recommend);
+schedule.scheduleJob('0 11 18 * * *', recommend);
 
 process.on('unhandledRejection', console.error.bind(console));

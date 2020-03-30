@@ -55,7 +55,11 @@ class App {
     }).join('\n- ');
     const shici = await this.getShici();
     const shiciObj = JSON.parse(shici).data.origin;
-    const msg = message.Markdown(`每日推荐🌟🌟\n喵～\n>${shiciObj.content}\n<font color="info">--${shiciObj.title}</font>\n<font color="info">--${shiciObj.author}</font>\n\n喵喵～\n- ${articlesMarkdown}`)
+    let content = '';
+    shiciObj.content.forEach(item => {
+      content = content + item.replace(/\,/g, '') + '\n';
+    });
+    const msg = message.Markdown(`每日推荐🌟🌟\n喵～\n>${content}><font color="info">--${shiciObj.title}</font>\n<font color="info">--${shiciObj.author}</font>\n\n喵喵～\n- ${articlesMarkdown}`)
     return msg;
   }
 
