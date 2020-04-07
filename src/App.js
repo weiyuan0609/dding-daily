@@ -63,6 +63,21 @@ class App {
     return msg;
   }
 
+  // 生成早会通知
+  async generateNoticeMsg() {
+    const noticeMarkdown = `[物业二组早会记录](https://docs.qq.com/sheet/DZnhGU1pCWVpUQ2JU?tab=BB08J2)`
+
+    const shici = await this.getShici();
+    const shiciObj = JSON.parse(shici).data.origin;
+    let content = '';
+    shiciObj.content.forEach(item => {
+      content = content + item.replace(/\,/g, '') + '\n';
+    });
+
+    const msg = message.Markdown(`早上好🌟🌟\n喵～\n>${content}><font color="info">--${shiciObj.title}</font>\n<font color="info">--${shiciObj.author}</font>\n\n喵喵～\n- ${noticeMarkdown}`)
+    return msg;
+  }
+
   // 广播消息给微信
   broadcastMsg(msg, dingType = 'WX_URL') {
     return rp({

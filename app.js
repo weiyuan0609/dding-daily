@@ -13,6 +13,17 @@ async function recommend() {
   }
 }
 
+// 生成早会纪要
+async function recommendNotice() {
+  try {
+    const msg = await app.generateNoticeMsg();
+    await app.broadcastMsg(msg, 'WY_WX_URL');
+  } catch (err) {
+    console.info('推荐失败', err);
+    recommendNotice();
+  }
+}
+
 /**
  *  * * * * * *
  *  ┬ ┬ ┬ ┬ ┬ ┬
@@ -30,6 +41,8 @@ async function recommend() {
   * 2016年的1月1日1点1分30秒触发 ：'30 1 1 1 2016 *'
   * 每周1的1点1分30秒触发 ：'30 1 1 * * 1'
  */
-schedule.scheduleJob('0 11 18 * * *', recommend);
+schedule.scheduleJob('0 12 20 * * *', recommend);
+
+schedule.scheduleJob('0 57 9 * * *', recommendNotice);
 
 process.on('unhandledRejection', console.error.bind(console));
