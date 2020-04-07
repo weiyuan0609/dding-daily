@@ -24,6 +24,17 @@ async function recommendNotice() {
   }
 }
 
+// 生成吃饭通知
+async function recommendEat(tag) {
+  try {
+    const msg = await app.generateEatMsg(tag);
+    await app.broadcastMsg(msg, 'WX_URL');
+  } catch (err) {
+    console.log('推荐失败', err);
+    recommendEat();
+  }
+}
+
 /**
  *  * * * * * *
  *  ┬ ┬ ┬ ┬ ┬ ┬
@@ -41,8 +52,11 @@ async function recommendNotice() {
   * 2016年的1月1日1点1分30秒触发 ：'30 1 1 1 2016 *'
   * 每周1的1点1分30秒触发 ：'30 1 1 * * 1'
  */
-schedule.scheduleJob('0 12 20 * * *', recommend);
+schedule.scheduleJob('0 45 10 * * *', recommend);
 
-schedule.scheduleJob('0 57 9 * * *', recommendNotice);
+schedule.scheduleJob('0 0 9 * * 1-5', recommendNotice);
+
+schedule.scheduleJob('0 0 10 * * 1-5', recommendEat);
+schedule.scheduleJob('0 30 16 * * 1-5', () => { recommendEat(1); });
 
 process.on('unhandledRejection', console.error.bind(console));

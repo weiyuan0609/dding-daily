@@ -78,6 +78,14 @@ class App {
     return msg;
   }
 
+  // 生成吃饭通知
+  // tag 1 晚上  0 / undefiend 早上
+  async generateEatMsg(tag) {
+    const content = tag !== 1 ? `悠饭点餐预定至10时30分截止，记得点餐哦` : `悠饭点餐预定至17时00分截止，加班的同学记得点餐哦`;
+    const msg = message.Markdown(`🍵🍵🍵 ${content}`)
+    return msg;
+  }
+
   // 广播消息给微信
   broadcastMsg(msg, dingType = 'WX_URL') {
     return rp({
